@@ -1,9 +1,14 @@
 package com.atletas.catalogAtletas.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +18,9 @@ import com.atletas.catalogAtletas.repositories.AthleteRepository;
 import com.atletas.catalogAtletas.repositories.CategoryRepository;
 import com.atletas.catalogAtletas.repositories.ModalityRepository;
 import com.atletas.catalogAtletas.repositories.SchoolRepository;
+import com.atletas.catalogAtletas.services.exception.DataBaseException;
+import com.atletas.catalogAtletas.services.exception.ResourceNotFoundException;
+
 
 @Service
 public class AthleteService {
@@ -35,7 +43,17 @@ public class AthleteService {
 				
 		return list.stream().map(x -> new AthleteDTO(x,x.getCategory(),x.getModality(),x.getSchool())).collect(Collectors.toList());
 	}
+	
+	
+	@Transactional(readOnly = true)
+	public AthleteDTO findById(Long id) {
+		Optional<Athlete> obj = athleteRepository.findById(id);
 
+		Athlete entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+
+		return new AthleteDTO(entity,entity.getCategory(),entity.getModality(),entity.getSchool());
+	}
+	
 	@Transactional
 	public AthleteDTO save(AthleteDTO dto) {
 
@@ -48,6 +66,32 @@ public class AthleteService {
 		return new AthleteDTO(entity,entity.getCategory(),entity.getModality(),entity.getSchool());
 	}
 
+	
+	@Transactional
+	public AthleteDTO update(Long id, AthleteDTO dto) {
+
+		try {
+			Athlete entity = athleteRepository.getOne(id);
+			copyDtoToEntity(dto, entity);
+			entity = athleteRepository.save(entity);
+			return new AthleteDTO(entity,entity.getCategory(),entity.getModality(),entity.getSchool());
+		} catch (EntityNotFoundException ex) {
+			throw new ResourceNotFoundException("Id Not Found " + id);
+		}
+
+	}
+
+	public void delete(Long id) {
+		try {
+			athleteRepository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Id Not Found " + id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataBaseException("Integrity Violation");
+		}
+
+	}
+	
 	private void copyDtoToEntity(AthleteDTO dto, Athlete entity) {
 
 		entity.setCpf(dto.getCpf());
