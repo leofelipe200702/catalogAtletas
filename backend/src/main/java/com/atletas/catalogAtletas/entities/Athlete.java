@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -24,6 +25,7 @@ public class Athlete implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private Integer codAthlete;
 	private String name;
 	private Date dtBirth;
 	private String nmFather;
@@ -34,28 +36,31 @@ public class Athlete implements Serializable {
 	private String cpf;
 	private String imgUrl;
 	private Integer year;
-	
+	@Lob
+	private String image;
+
 	@ManyToOne
 	@JoinColumn(name = "id_category", nullable = false)
 	private Category category;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_modality", nullable = false)
 	private Modality modality;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_school", nullable = false)
 	private School school;
-	
-	
+
 	public Athlete() {
 
 	}
 
-	public Athlete(Long id, String name, Date dtBirth, String nmFather, String nmMother, String curriculum,
-			String identity, String cpf, String imgUrl, Integer year) {
+	public Athlete(Long id, Integer codAthlete,String name, Date dtBirth, String nmFather, String nmMother, String curriculum,
+			String identity, String cpf, String imgUrl, Integer year, String image, Category category,
+			Modality modality, School school) {
 		super();
 		this.id = id;
+		this.codAthlete = codAthlete;
 		this.name = name;
 		this.dtBirth = dtBirth;
 		this.nmFather = nmFather;
@@ -65,6 +70,10 @@ public class Athlete implements Serializable {
 		this.cpf = cpf;
 		this.imgUrl = imgUrl;
 		this.year = year;
+		this.image = image;
+		this.category = category;
+		this.modality = modality;
+		this.school = school;
 	}
 
 	public Long getId() {
@@ -146,9 +155,7 @@ public class Athlete implements Serializable {
 	public void setYear(Integer year) {
 		this.year = year;
 	}
-	
 
-	
 	public Category getCategory() {
 		return category;
 	}
@@ -172,7 +179,23 @@ public class Athlete implements Serializable {
 	public void setSchool(School school) {
 		this.school = school;
 	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 	
+	public Integer getCodAthlete() {
+		return codAthlete;
+	}
+
+	public void setCodAthlete(Integer codAthlete) {
+		this.codAthlete = codAthlete;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

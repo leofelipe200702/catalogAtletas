@@ -16,6 +16,7 @@ public class AthleteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	private Integer codAthlete;
 	private String name;
 	private Date dtBirth;
 	private String nmFather;
@@ -28,14 +29,16 @@ public class AthleteDTO implements Serializable {
 	private CategoryDTO category;
 	private ModalityDTO modality;
 	private SchoolDTO school;
+	private String image;
 
 	public AthleteDTO() {
 
 	}
 
-	public AthleteDTO(Long id, String name, Date dtBirth, String nmFather, String nmMother, String curriculum,
-			String identity, String cpf, String imgUrl, Integer year) {
+	public AthleteDTO(Long id, Integer codAthlete, String name, Date dtBirth, String nmFather, String nmMother,
+			String curriculum, String identity, String cpf, String imgUrl, Integer year, String image) {
 		this.id = id;
+		this.codAthlete = codAthlete;
 		this.name = name;
 		this.dtBirth = dtBirth;
 		this.nmFather = nmFather;
@@ -45,10 +48,12 @@ public class AthleteDTO implements Serializable {
 		this.cpf = cpf;
 		this.imgUrl = imgUrl;
 		this.year = year;
+		this.image = image;
 	}
 
 	public AthleteDTO(Athlete entity) {
 		this.id = entity.getId();
+		this.codAthlete = entity.getCodAthlete();
 		this.name = entity.getName();
 		this.dtBirth = entity.getDtBirth();
 		this.nmFather = entity.getNmFather();
@@ -58,6 +63,7 @@ public class AthleteDTO implements Serializable {
 		this.cpf = entity.getCpf();
 		this.imgUrl = entity.getImgUrl();
 		this.year = entity.getYear();
+		this.image = entity.getImage();
 	}
 
 	public AthleteDTO(Athlete entity, Category category, Modality modality, School school) {
@@ -169,6 +175,22 @@ public class AthleteDTO implements Serializable {
 
 	public void setSchool(SchoolDTO school) {
 		this.school = school;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public Integer getCodAthlete() {
+		return codAthlete;
+	}
+
+	public void setCodAthlete(Integer codAthlete) {
+		this.codAthlete = codAthlete;
 	}
 
 }

@@ -59,6 +59,8 @@ public class AthleteService {
 		entity.setNmFather(dto.getNmFather());
 		entity.setNmMother(dto.getNmMother());
 		entity.setYear(dto.getYear());
+		entity.setImage(dto.getImage());
+		entity.setCodAthlete(dto.getCodAthlete());
 		entity.setModality(modalityRepository.getOne(dto.getModality().getId()));
 		entity.setCategory(categoryRepository.getOne(dto.getCategory().getId()));
 		entity.setSchool(schoolRepository.getOne(dto.getSchool().getId()));
