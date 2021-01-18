@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.atletas.catalogAtletas.dto.AthleteDTO;
 import com.atletas.catalogAtletas.entities.Athlete;
-import com.atletas.catalogAtletas.entities.Category;
 import com.atletas.catalogAtletas.repositories.AthleteRepository;
 import com.atletas.catalogAtletas.repositories.CategoryRepository;
 import com.atletas.catalogAtletas.repositories.ModalityRepository;
@@ -46,7 +45,7 @@ public class AthleteService {
 
 		entity = athleteRepository.save(entity);
 
-		return new AthleteDTO(entity);
+		return new AthleteDTO(entity,entity.getCategory(),entity.getModality(),entity.getSchool());
 	}
 
 	private void copyDtoToEntity(AthleteDTO dto, Athlete entity) {
