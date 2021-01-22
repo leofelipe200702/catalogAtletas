@@ -16,7 +16,7 @@ public class AthleteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	private Integer codAthlete;
+	private String codAthlete;
 	private String name;
 	private Date dtBirth;
 	private String nmFather;
@@ -24,7 +24,6 @@ public class AthleteDTO implements Serializable {
 	private String curriculum;
 	private String identity;
 	private String cpf;
-	private String imgUrl;
 	private Integer year;
 	private CategoryDTO category;
 	private ModalityDTO modality;
@@ -35,8 +34,8 @@ public class AthleteDTO implements Serializable {
 
 	}
 
-	public AthleteDTO(Long id, Integer codAthlete, String name, Date dtBirth, String nmFather, String nmMother,
-			String curriculum, String identity, String cpf, String imgUrl, Integer year, String image) {
+	public AthleteDTO(Long id, String codAthlete, String name, Date dtBirth, String nmFather, String nmMother,
+			String curriculum, String identity, String cpf,Integer year, String image) {
 		this.id = id;
 		this.codAthlete = codAthlete;
 		this.name = name;
@@ -46,7 +45,6 @@ public class AthleteDTO implements Serializable {
 		this.curriculum = curriculum;
 		this.identity = identity;
 		this.cpf = cpf;
-		this.imgUrl = imgUrl;
 		this.year = year;
 		this.image = image;
 	}
@@ -61,7 +59,6 @@ public class AthleteDTO implements Serializable {
 		this.curriculum = entity.getCurriculum();
 		this.identity = entity.getIdentity();
 		this.cpf = entity.getCpf();
-		this.imgUrl = entity.getImgUrl();
 		this.year = entity.getYear();
 		this.image = entity.getImage();
 	}
@@ -135,15 +132,7 @@ public class AthleteDTO implements Serializable {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
-	}
-
-	public String getImgUrl() {
-		return imgUrl;
-	}
-
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
-	}
+	}	
 
 	public Integer getYear() {
 		return year;
@@ -185,11 +174,11 @@ public class AthleteDTO implements Serializable {
 		this.image = image;
 	}
 
-	public Integer getCodAthlete() {
+	public String getCodAthlete() {
 		return codAthlete;
 	}
 
-	public void setCodAthlete(Integer codAthlete) {
+	public void setCodAthlete(String codAthlete) {
 		this.codAthlete = codAthlete;
 	}
 

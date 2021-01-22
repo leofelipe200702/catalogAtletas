@@ -98,7 +98,6 @@ public class AthleteService {
 		entity.setCurriculum(dto.getCurriculum());
 		entity.setDtBirth(dto.getDtBirth());
 		entity.setIdentity(dto.getIdentity());
-		entity.setImgUrl(dto.getImgUrl());
 		entity.setName(dto.getName());
 		entity.setNmFather(dto.getNmFather());
 		entity.setNmMother(dto.getNmMother());
