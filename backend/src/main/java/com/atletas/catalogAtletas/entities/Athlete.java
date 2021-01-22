@@ -33,6 +33,7 @@ public class Athlete implements Serializable {
 	@Column(columnDefinition = "TEXT")
 	private String curriculum;
 	private String identity;
+	private String certBirth;
 	private String cpf;
 	private Integer year;
 	@Lob
@@ -54,9 +55,9 @@ public class Athlete implements Serializable {
 
 	}
 
-	public Athlete(Long id, String codAthlete,String name, Date dtBirth, String nmFather, String nmMother, String curriculum,
-			String identity, String cpf,Integer year, String image, Category category,
-			Modality modality, School school) {
+	public Athlete(Long id, String codAthlete, String name, Date dtBirth, String nmFather, String nmMother,
+			String curriculum, String identity, String cpf, Integer year, String image, Category category,
+			Modality modality, School school, String certBirth) {
 		super();
 		this.id = id;
 		this.codAthlete = codAthlete;
@@ -66,6 +67,7 @@ public class Athlete implements Serializable {
 		this.nmMother = nmMother;
 		this.curriculum = curriculum;
 		this.identity = identity;
+		this.certBirth = certBirth;
 		this.cpf = cpf;
 		this.year = year;
 		this.image = image;
@@ -136,7 +138,7 @@ public class Athlete implements Serializable {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
-	}	
+	}
 
 	public Integer getYear() {
 		return year;
@@ -177,13 +179,21 @@ public class Athlete implements Serializable {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
+
 	public String getCodAthlete() {
 		return codAthlete;
 	}
 
 	public void setCodAthlete(String codAthlete) {
 		this.codAthlete = codAthlete;
+	}
+
+	public String getCertBirth() {
+		return certBirth;
+	}
+
+	public void setCertBirth(String certBirth) {
+		this.certBirth = certBirth;
 	}
 
 	@Override

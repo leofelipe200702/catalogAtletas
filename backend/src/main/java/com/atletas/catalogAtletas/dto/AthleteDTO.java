@@ -29,13 +29,14 @@ public class AthleteDTO implements Serializable {
 	private ModalityDTO modality;
 	private SchoolDTO school;
 	private String image;
+	private String certBirth;
 
 	public AthleteDTO() {
 
 	}
 
 	public AthleteDTO(Long id, String codAthlete, String name, Date dtBirth, String nmFather, String nmMother,
-			String curriculum, String identity, String cpf,Integer year, String image) {
+			String curriculum, String identity, String cpf, Integer year, String image, String certBirth) {
 		this.id = id;
 		this.codAthlete = codAthlete;
 		this.name = name;
@@ -44,6 +45,7 @@ public class AthleteDTO implements Serializable {
 		this.nmMother = nmMother;
 		this.curriculum = curriculum;
 		this.identity = identity;
+		this.certBirth = certBirth;
 		this.cpf = cpf;
 		this.year = year;
 		this.image = image;
@@ -58,6 +60,7 @@ public class AthleteDTO implements Serializable {
 		this.nmMother = entity.getNmMother();
 		this.curriculum = entity.getCurriculum();
 		this.identity = entity.getIdentity();
+		this.certBirth = entity.getCertBirth();
 		this.cpf = entity.getCpf();
 		this.year = entity.getYear();
 		this.image = entity.getImage();
@@ -126,13 +129,21 @@ public class AthleteDTO implements Serializable {
 		this.identity = identity;
 	}
 
+	public String getCertBirth() {
+		return certBirth;
+	}
+
+	public void setCertBirth(String certBirth) {
+		this.certBirth = certBirth;
+	}
+
 	public String getCpf() {
 		return cpf;
 	}
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
-	}	
+	}
 
 	public Integer getYear() {
 		return year;
