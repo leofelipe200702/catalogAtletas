@@ -34,10 +34,13 @@ public class AthleteResource {
 
     @GetMapping
     public ResponseEntity<Page<AthleteResumedDTO>> findAll(AthleteFilter filter) {
-        Pageable pageSetting = PageRequest.of(filter.getPage(), filter.getSize(), Direction.valueOf(filter.getDirection()),
+        Integer page = filter.getPage() != null ? filter.getPage() : 0;
+        Integer pageSize = filter.getSize() != null ? filter.getSize() : 10;
+
+        Pageable pageSetting = PageRequest.of(page, pageSize, Direction.valueOf(filter.getDirection()),
                                               filter.getOrderBy());
-        Page<AthleteResumedDTO> page = athleteService.findAll(filter, pageSetting);
-        return ResponseEntity.ok(page);
+        Page<AthleteResumedDTO> pageResponse = athleteService.findAll(filter, pageSetting);
+        return ResponseEntity.ok(pageResponse);
 
     }
 
