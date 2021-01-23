@@ -40,15 +40,13 @@ public class AthleteRepositoryCustomImpl implements AthleteRepositoryCustom {
                                           root.get("identity"),
                                           root.get("certBirth"),
                                           root.get("cpf")));
-        return pageHandler(filter, pageSettings, builder, criteria, root);
-    }
-
-    private Page<AthleteResumedDTO> pageHandler(AthleteFilter filter, Pageable pageSettings, CriteriaBuilder builder,
-                                                CriteriaQuery<AthleteResumedDTO> criteria, Root<Athlete> root) {
         criteria.where(createRestrictions(filter, builder, root));
-        TypedQuery<AthleteResumedDTO> query = createQuery(criteria, pageSettings);
 
-        return new PageImpl<>(query.getResultList(), pageSettings, totalElementsHandler(filter));
+        TypedQuery<AthleteResumedDTO> query = em.createQuery(criteria);
+        query.setFirstResult(pageSettings.getPageNumber() * pageSettings.getPageSize());
+        query.setMaxResults(pageSettings.getPageSize());
+
+        return new PageImpl<>(query.getResultList(), pageSettings, getTotalElementsHandler(filter));
     }
 
     /**
@@ -58,32 +56,14 @@ public class AthleteRepositoryCustomImpl implements AthleteRepositoryCustom {
      * 
      * @return
      */
-    private Long totalElementsHandler(AthleteFilter filter) {
+    private Long getTotalElementsHandler(AthleteFilter filter) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
         Root<Athlete> root = criteriaQuery.from(Athlete.class);
-        criteriaQuery.where(createRestrictions(filter, builder, root));
         criteriaQuery.select(builder.count(root));
+        criteriaQuery.where(createRestrictions(filter, builder, root));
 
         return em.createQuery(criteriaQuery).getSingleResult();
-    }
-
-    /**
-     * Cria a query de consulta
-     * 
-     * @param criteria
-     * @param pageSettings
-     * @return
-     */
-    private TypedQuery<AthleteResumedDTO> createQuery(CriteriaQuery<AthleteResumedDTO> criteria, Pageable pageSettings) {
-        TypedQuery<AthleteResumedDTO> query = em.createQuery(criteria);
-        createPaginationRestriction(query, pageSettings);
-        return query;
-    }
-
-    private void createPaginationRestriction(TypedQuery<AthleteResumedDTO> query, Pageable pageSettings) {
-        query.setFirstResult(pageSettings.getPageNumber() * pageSettings.getPageSize());
-        query.setMaxResults(pageSettings.getPageNumber());
     }
 
     /**
