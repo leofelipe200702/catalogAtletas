@@ -30,12 +30,6 @@ public class AthleteService {
     private AthleteRepository athleteRepository;
 
     @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private ModalityRepository modalityRepository;
-
-    @Autowired
     private SchoolRepository schoolRepository;
 
     @Transactional(readOnly = true)
@@ -44,7 +38,7 @@ public class AthleteService {
 
         Athlete entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
 
-        return new AthleteDTO();
+        return new AthleteDTO(entity,entity.getSchool());
     }
 
     @Transactional
@@ -56,7 +50,7 @@ public class AthleteService {
 
         entity = athleteRepository.save(entity);
 
-        return new AthleteDTO();
+        return new AthleteDTO(entity,entity.getSchool());
     }
 
     @Transactional
@@ -66,7 +60,7 @@ public class AthleteService {
             Athlete entity = athleteRepository.getOne(id);
             copyDtoToEntity(dto, entity);
             entity = athleteRepository.save(entity);
-            return new AthleteDTO();
+            return new AthleteDTO(entity,entity.getSchool());
         } catch (EntityNotFoundException ex) {
             throw new ResourceNotFoundException("Id Not Found " + id);
         }

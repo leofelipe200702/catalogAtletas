@@ -39,7 +39,8 @@ public class AthleteRepositoryCustomImpl implements AthleteRepositoryCustom {
                                           root.get("nmMother"),
                                           root.get("identity"),
                                           root.get("certBirth"),
-                                          root.get("cpf")));
+                                          root.get("cpf"),
+                                          root.get("school")));
         criteria.where(createRestrictions(filter, builder, root));
 
         TypedQuery<AthleteResumedDTO> query = em.createQuery(criteria);

@@ -7,8 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.atletas.catalogAtletas.entities.Athlete;
-import com.atletas.catalogAtletas.entities.Category;
-import com.atletas.catalogAtletas.entities.Modality;
 import com.atletas.catalogAtletas.entities.School;
 
 public class AthleteDTO implements Serializable {
@@ -28,9 +26,6 @@ public class AthleteDTO implements Serializable {
     private String curriculum;
     private String identity;
     private String cpf;
-    private Integer year;
-    private CategoryDTO category;
-    private ModalityDTO modality;
     private SchoolDTO school;
     private String image;
     private String certBirth;
@@ -40,7 +35,7 @@ public class AthleteDTO implements Serializable {
     }
 
     public AthleteDTO(Long id, String codAthlete, String name, LocalDate dtBirth, String nmFather, String nmMother,
-            String curriculum, String identity, String cpf, Integer year, String image, String certBirth) {
+            String curriculum, String identity, String cpf, String image, String certBirth) {
         this.id = id;
         this.codAthlete = codAthlete;
         this.name = name;
@@ -51,7 +46,6 @@ public class AthleteDTO implements Serializable {
         this.identity = identity;
         this.certBirth = certBirth;
         this.cpf = cpf;
-        this.year = year;
         this.image = image;
     }
 
@@ -69,10 +63,8 @@ public class AthleteDTO implements Serializable {
         this.image = entity.getImage();
     }
 
-    public AthleteDTO(Athlete entity, Category category, Modality modality, School school) {
+    public AthleteDTO(Athlete entity,School school) {
         this(entity);
-        this.category = new CategoryDTO(category);
-        this.modality = new ModalityDTO(modality);
         this.school = new SchoolDTO(school);
     }
 
@@ -146,31 +138,7 @@ public class AthleteDTO implements Serializable {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public CategoryDTO getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryDTO category) {
-        this.category = category;
-    }
-
-    public ModalityDTO getModality() {
-        return modality;
-    }
-
-    public void setModality(ModalityDTO modality) {
-        this.modality = modality;
-    }
+    }   
 
     public SchoolDTO getSchool() {
         return school;
@@ -195,5 +163,32 @@ public class AthleteDTO implements Serializable {
     public void setCodAthlete(String codAthlete) {
         this.codAthlete = codAthlete;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AthleteDTO other = (AthleteDTO) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+    
+    
 
 }
