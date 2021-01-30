@@ -16,8 +16,6 @@ import com.atletas.catalogAtletas.dto.AthleteDTO;
 import com.atletas.catalogAtletas.dto.AthleteResumedDTO;
 import com.atletas.catalogAtletas.entities.Athlete;
 import com.atletas.catalogAtletas.repositories.AthleteRepository;
-import com.atletas.catalogAtletas.repositories.CategoryRepository;
-import com.atletas.catalogAtletas.repositories.ModalityRepository;
 import com.atletas.catalogAtletas.repositories.SchoolRepository;
 import com.atletas.catalogAtletas.resources.filters.AthleteFilter;
 import com.atletas.catalogAtletas.services.exception.DataBaseException;
