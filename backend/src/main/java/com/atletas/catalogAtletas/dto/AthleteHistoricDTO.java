@@ -12,7 +12,6 @@ public class AthleteHistoricDTO implements Serializable{
 	private Integer year;	
 	
 	public AthleteHistoricDTO(Long id_athlete, Integer year) {
-		super();
 		this.id_athlete = id_athlete;
 		this.year = year;
 	}

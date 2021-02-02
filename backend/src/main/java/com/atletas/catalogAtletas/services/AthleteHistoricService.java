@@ -24,9 +24,9 @@ public class AthleteHistoricService {
 	private AthleteHistoricRepository athleteHistoricRepository;
 
 	@Transactional(readOnly = true)
-	public AthleteHistoricDTO findById(Long id) {
-		Optional<AthleteHistoric> obj = athleteHistoricRepository.findById(id);
-
+	public AthleteHistoricDTO findById(AthleticHistoricPk pk) {
+		Optional<AthleteHistoric> obj = athleteHistoricRepository.findByPk(pk);
+		
 		AthleteHistoric entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
 
 		return new AthleteHistoricDTO(entity);
@@ -45,24 +45,24 @@ public class AthleteHistoricService {
 	}
 
 	@Transactional
-	public AthleteHistoricDTO update(Long id, AthleteHistoricDTO dto) {
+	public AthleteHistoricDTO update(AthleticHistoricPk pk, AthleteHistoricDTO dto) {
 
 		try {
-			AthleteHistoric entity = athleteHistoricRepository.getOne(id);
+			AthleteHistoric entity = athleteHistoricRepository.getOne(pk);
 			copyDtoToEntity(dto, entity);
 			entity = athleteHistoricRepository.save(entity);
 			return new AthleteHistoricDTO(entity);
 		} catch (EntityNotFoundException ex) {
-			throw new ResourceNotFoundException("Id Not Found " + id);
+			throw new ResourceNotFoundException("Id Not Found " + pk.getAthleteId());
 		}
 
 	}
 	
-	public void delete(Long id) {
+	public void delete(AthleticHistoricPk pk) {
 		try {
-			athleteHistoricRepository.deleteById(id);
+			athleteHistoricRepository.deleteById(pk);
 		} catch (EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException("Id Not Found " + id);
+			throw new ResourceNotFoundException("Id Not Found " + pk.getAthleteId());
 		} catch (DataIntegrityViolationException e) {
 			throw new DataBaseException("Integrity Violation");
 		}
