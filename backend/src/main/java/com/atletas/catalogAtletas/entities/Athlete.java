@@ -40,7 +40,7 @@ public class Athlete implements Serializable {
     private String certBirth;
     private String cpf;
 
-    @OneToMany(mappedBy = "athlete", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "athlete", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private List<AthleteHistoric> historical = new ArrayList<>();
 
     @Lob
