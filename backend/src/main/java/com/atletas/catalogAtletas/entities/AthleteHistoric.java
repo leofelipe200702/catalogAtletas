@@ -28,7 +28,7 @@ public class AthleteHistoric implements Serializable {
     @JoinColumn(name = "id_athlete")
     private Athlete athlete;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "historic")
     private List<HistoricEvent> events = new ArrayList<>();
 
     public AthleticHistoricPk getPk() {
